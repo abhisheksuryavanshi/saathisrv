@@ -21,5 +21,6 @@ from paratha import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^paratha/', include('paratha.urls')),
+    # url(r'^resp/', views.camplist),
     url(r'^resp/', views.camplist.as_view()),
 ]
