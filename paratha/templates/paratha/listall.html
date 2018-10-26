@@ -1,0 +1,13 @@
+<ol>
+	<h2><marquee>List of all camps with location</marquee></h2>
+	{% for c in all_camps %}
+		<li>
+			<p>
+				<h3> <font color="red">Name: {{ c.name }}</h3></font><br/>
+				<h3>xcor: {{ c.xcor }}</h3><br/>
+				<h3>ycor: {{ c.ycor }}</h3><br/>
+			</p>
+		</li>
+	{% endfor %}
+
+</ol>
