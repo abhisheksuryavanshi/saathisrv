@@ -10,6 +10,7 @@ import json
 import requests
 from rest_framework.decorators import api_view
 import math 
+import decimal
 
 def index(request):
 	all_camps = camp.objects.all()
@@ -21,6 +22,10 @@ import codecs
 reader = codecs.getreader("utf-8")
 
 def calculate(ax, ay, bx, by):
+	ax = decimal.Decimal(ax)*100
+	ay = decimal.Decimal(ay)*100
+	by = decimal.Decimal(by)*100
+	bx = decimal.Decimal(bx)*100
 	ans = (ax - bx)*(ax - bx) + (ay - by)*(ay - by)
 	t = math.sqrt(ans)
 	return t
@@ -38,9 +43,9 @@ class camplist(APIView):
 		# ycoor = request.POST.get('ycor')
 		from .models import camp
 		xcoor = "4"
-		xcoor = int(round(float(request.POST.get("xcor"))))
+		xcoor = float(request.POST.get("xcor"))
 		ycoor = "f"
-		ycoor = int(round(float(request.POST.get("ycor"))))
+		ycoor = float(request.POST.get("ycor"))
 
 		all_camps = camp.objects.all()
 
@@ -49,7 +54,7 @@ class camplist(APIView):
 		for camp in all_camps:
 			b = calculate(camp.xcor, camp.ycor, xcoor, ycoor)
 			
-			if(b < 100):
+			if(b < 8):
 				res[camp.name] = {camp.xcor, camp.ycor}
 			print(b)
 
